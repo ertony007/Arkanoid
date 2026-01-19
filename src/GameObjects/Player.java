@@ -1,14 +1,15 @@
 package GameObjects;
 
 import Configuration.Config;
+import Engine.Collidable;
 import Engine.GameObject;
 import Engine.InputHandler;
 
 import java.awt.*;
 
-public class Player extends GameObject {
+public class Player extends GameObject implements Collidable {
     private InputHandler input;
-    private float speed = 5.0f;
+    private float speed = 4.5f;
     public Player(float x, float y, InputHandler input) {
         super(x, y, Config.Playerwidth, Config.Playerheight); // usar el mismo
         this.input = input;
@@ -30,5 +31,10 @@ public class Player extends GameObject {
         g.drawRect((int)x, (int)y, width, height);
         g.setColor(Color.GREEN);
         g.fillRect((int)x, (int)y, width, height);
+    }
+
+    @Override
+    public void onCollision(GameObject other) {
+
     }
 }

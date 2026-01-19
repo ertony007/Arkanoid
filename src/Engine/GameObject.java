@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public abstract class GameObject {
 
-
+    // Usamos protected para que las clases hijas puedan acceder directamente
     protected float x, y;
     protected int width, height;
     protected float speedX, speedY;
@@ -21,7 +21,6 @@ public abstract class GameObject {
      * @param width Ancho del objeto.
      * @param height Alto del objeto.
      */
-
     public GameObject(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -54,10 +53,24 @@ public abstract class GameObject {
     public int getWidth() { return width; }
     public int getHeight() { return height; }
 
-
-
     public void setVelocity(float velX, float velY) {
         this.speedX = velX;
         this.speedY = velY;
+    }
+
+    public void setVelocityX(float velX) {
+        this.speedX = velX;
+    }
+
+    public void setVelocityY(float velY) {
+        this.speedY = velY;
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle((int)x, (int)y, width, height);
+    }
+
+    public boolean intersects(GameObject other) {
+        return this.getBounds().intersects(other.getBounds());
     }
 }

@@ -1,18 +1,19 @@
 package GameObjects;
 
+import Engine.Collidable;
 import Engine.GameObject;
 import Configuration.Config;
 
 import java.awt.*;
 
-public class Ball extends GameObject {
+public class Ball extends GameObject implements Collidable {
 
-    private int radius;
+
 
     public Ball(float x, float y, int width, int height, int radius) {
         super(x, y, width, height);
 
-        this.radius = width / 2;
+        int radius1 = width / 2;
 
         this.speedX = 4;
         this.speedY = 5;
@@ -46,5 +47,23 @@ public class Ball extends GameObject {
         g.drawRect((int)x, (int)y, width, height);
         g.setColor(Color.GREEN);
         g.fillOval((int)x, (int)y, width, height);
+    }
+
+    @Override
+    public void onCollision(GameObject other) {
+        if (other.getClass() == Player.class || other instanceof Brick)
+
+            if (other.getClass() == Player.class){
+            Rectangle interseccion = this.getBounds().intersection(other.getBounds());
+
+            if (interseccion.width < interseccion.height){
+                speedX = -speedX;
+            }
+            if (this.x < other.getX()) this.x -= interseccion.width;
+            else this.x += interseccion.width;
+
+            } else {
+            speedY = -speedY;
+        }
     }
 }
